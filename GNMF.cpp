@@ -5,7 +5,9 @@
 #include <random>
 #include<cmath>
 
-#define MAX_ITERATION 20
+#define MAX_ITERATION 2000
+
+#define EPS 10e-6
 
 #define Lamda 0.5
 
@@ -194,6 +196,22 @@ vector<vector<double>> constant_multiply(vector<vector<double>> &mat,int row,int
     
 }
 
+vector<vector<double>> constant_add(vector<vector<double>> &mat,int row,int col,double constant)
+{
+    int i , j;
+
+  for(i=0;i<row;i++)
+   {
+     for(j=0;j<col;j++)
+     {
+       mat[i][j] = constant + mat[i][j]; 
+     }
+   }
+
+   return mat;
+    
+}
+
 
 
 
@@ -289,6 +307,8 @@ vector<vector<double>> update_matrix_U(vector<vector<double>> &mat_A,vector<vect
 
    denominator = add_elementwise(denominator1,denominator2,M,K);
 
+   denominator = constant_add(denominator,M,K,EPS);
+
    //print(M,K,denominator);
 
    ratio = divide_elementwise(numerator,denominator,M,K);
@@ -316,6 +336,8 @@ vector<vector<double>> update_matrix_V(vector<vector<double>> &mat_A, vector<vec
    denominator = matrixMultiplication(N,K,M,V,Ut);
 
    denominator = matrixMultiplication(N,M,K,denominator,U);
+
+   denominator = constant_add(denominator,N,K,EPS);
 
    //print(N,K,denominator);
 
@@ -445,7 +467,7 @@ int main()
 
   cout << "Factorisation complete!"<<endl;
 
-  cout << "total iteration:" << i << endl << "Minimum Error: " << min << endl;
+  cout << "total iteration:" << i-1 << endl << "Minimum Error: " << min << endl;
 
   
 
