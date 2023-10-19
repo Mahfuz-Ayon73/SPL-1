@@ -341,4 +341,32 @@ double H_calculation(vector<vector<double>> &mat,int row , int col)
    return H;
 }
 
+vector<vector<double>> E_matrix(int row)
+{
+  int N = row;
+
+  vector<vector<double>> E;
+
+  for(int i=0;i<N;i++)
+     {
+         vector<double> tempvec;
+         for(int j=0;j<N;j++)
+         {
+             tempvec.push_back(0);
+         }
+         E.push_back(tempvec);
+     }
+
+   for(int i=0;i<N;i++)
+     {
+         for(int j=0;j<N;j++)
+         {
+             E[i][j] = 1/(double)N;
+         }
+         
+     }
+  
+  return E;
+}
+
 
