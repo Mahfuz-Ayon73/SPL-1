@@ -313,3 +313,32 @@ vector<vector<double>> Z_calculation(vector<vector<double>> &X,vector<vector<dou
      return Z;
 }
 
+double H_calculation(vector<vector<double>> &mat,int row , int col)
+{
+   vector<vector<double>> V = mat;
+
+   double H = 0.0;
+
+   for(int i=0;i<row;i++)
+     {
+         vector<double> tempvec;
+         for(int j=0;j<col;j++)
+         {
+             tempvec.push_back(0);
+         }
+         V.push_back(tempvec);
+     }
+
+   for(int i=0;i<row;i++)
+   {
+     for(int j=0;j<col;j++)
+     {
+        H += (V[i][j]*V[i][j]);
+     }
+   }
+   H = sqrt(H);
+
+   return H;
+}
+
+
